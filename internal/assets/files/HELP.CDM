@@ -1,0 +1,151 @@
+ CD-MAN VERSION 2.0                                            Playing the Game
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+To play the game:
+
+
+You are to gobble all the dots while avoiding attack from the baddies.
+
+Snuffing the energy-chargers reverses the roles and gives you a chance to take
+revenge on the baddies (not bad for your score either!).
+
+Grab the goodies that magically appear to gain even more points.
+
+Clear the screen of all dots and you proceed to the next level.
+And if you should get far, a note of warning -  them baddies stop playing
+around and start getting mean!
+
+
+
+
+
+
+
+
+
+ CD-MAN VERSION 2.0                                                Game Control
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+The One and Two player games, where only one player is active at any time,
+can be controlled by either the cursor keys or a joystick.
+
+In the Double mode one of the players can use the joystick or both players
+the keyboard as follows:
+
+
+                PLAYER 1                        PLAYER 2
+
+                   W                               ³
+
+              A   ÄÅÄ   D                    <-   ÄÅÄ   ->
+
+                  Z X                              ³
+
+
+
+
+
+
+
+
+ CD-MAN VERSION 2.0                                                Control Keys
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Move around the Menu with the cursor keys, choose items by highlighting
+them with either the up and down keys or the first letter of your choice.
+
+ESC     at any point, any time, anywhere you can always return to the Menu by
+        pressing ESC
+
+CTRL-Q  will always exit the game to DOS instantly (without stopping to save
+        the latest changes to the Top-Ten table even)
+
+If you exit from gameplay with ESC you can continue your game by
+choosing CONTINUE.
+
+
+
+
+
+
+
+
+
+
+
+ CD-MAN VERSION 2.0                                         The Highscore Table
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+The highscore table shows the ten best scores, the players names and the time
+and date the game was played.
+It also holds the entry of the last player (or players if the last game
+was a two-player or double game).
+
+The highscore table is contained in the file HIGHSC.CDM
+If you want to start over with an empty highscore table you can simply
+delete the file and CD-MAN will create a fresh one.
+
+NOTE!  New entries in the highscore table will only be saved if you exit the
+       game with the QUIT option in the menu!
+
+
+
+
+
+
+
+
+
+
+
+ CD-MAN VERSION 2.0                                        The Statistics Table
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Pressing the spacebar at the highscore table will get you the
+statistics table.
+
+The columns are:
+
+Active game time  -  The time the game was actually played - that is, the time
+                     spent in the menu, help screens and so on is not included.
+
+Screen / Level    -  The number of screens reached and the level on the
+                     last screen.
+
+Average speed     -  A measure of the average speed relative to the other
+                     players.
+
+Moves made        -  Total number of moves made, one move being the distance
+                     between two dots.
+
+Monsters / Bonus  -  Total number of monsters and bonuses taken.
+
+
+
+
+ CD-MAN VERSION 2.0                          Copyright Creative Dimensions 1992
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+This game was designed and                   The authors can be reached at:
+produced by
+CREATIVE DIMENSIONS                          Attila Biro
+Anders Moree and Attila Biro                 Ladersattrav 93  7tr
+                                             175 70  Jarfalla
+                                             SWEDEN
+All rights reserved
+
+This is a commercial product and only distributed as such.
+This is NOT shareware NOR freeware.
+
+Please send your purchase orders to the adress below, or call us.
+
+Any questions or comments are welcome.
+
+CREATIVE DIMENSIONS                          Tel: (510) 484-5918
+818 Main St. Suite F
+Pleasanton, CA.
+94566  U.S.A.
+
+
+
+
