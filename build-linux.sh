@@ -16,5 +16,5 @@ mkdir -p build
 printf '%s\n' 'Running tests...'
 go test ./...
 printf '%s\n' 'Building CD-Man...'
-go build -buildvcs=false -trimpath -o build/cdman ./cmd/cdman
+go build -buildvcs=false -trimpath -o build/cdman-linux ./cmd/cdman
 printf '%s\n' 'Build complete: build/cdman' 'SDL2 must be installed to run the game.'
