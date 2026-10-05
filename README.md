@@ -1,4 +1,4 @@
-# CD-Man Go
+# CD-Man
 
 A desktop maze game for **Windows, Linux, and macOS**, written in Go.
 Collect dots, avoid enemies, and explore five worlds. The game includes
