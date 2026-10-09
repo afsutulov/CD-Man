@@ -1,4 +1,4 @@
-# CD-Man
+# CD-Man 2 Game
 
 A desktop maze game for **Windows, Linux, and macOS**, written in Go.
 Collect dots, avoid enemies, and explore five worlds. The game includes
@@ -33,43 +33,6 @@ needed. Install Go and SDL2 using your preferred package manager or installer.
 The adapter supports standard Homebrew library paths and SDL2.framework.
 On Linux, install Go, a C compiler, and the SDL2 runtime using your distribution's
 package manager.
-
-## Build and run
-
-### Windows
-
-Open Command Prompt or PowerShell in the project directory:
-
-```powershell
-.\build-windows.bat
-.\build\CDMan.exe
-```
-
-This is a batch file, so no PowerShell script execution-policy change is required.
-Alternatively, build directly:
-
-```powershell
-go test ./...
-go build -buildvcs=false -trimpath -ldflags "-H=windowsgui" -o build/CDMan.exe ./cmd/cdman
-```
-
-### Linux
-
-```sh
-sh build-linux.sh
-./build/cdman
-```
-
-### macOS
-
-```sh
-sh build-macos.sh
-./build/cdman
-```
-
-All three scripts run the tests first and stop on failure. Compiled binaries
-are written to `build/`; binaries are not included in the source distribution.
-On Linux and macOS, keep SDL2 installed when running the resulting executable.
 
 ## Controls
 
