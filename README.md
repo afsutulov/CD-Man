@@ -1,85 +1,157 @@
-# CD-Man 2 Game
+# CD-Man 2
 
-A desktop maze game for **Windows, Linux, and macOS**, written in Go.
-Collect dots, avoid enemies, and explore five worlds. The game includes
-single-player and two-player modes, a built-in demo, high scores, and in-game help.
-Starting a game goes directly to the level without an identification prompt.
+English | [Русский](README.ru.md)
+
+A Go port of **CD-Man 2.0**, the classic maze arcade game by Creative Dimensions (1992), for **Windows, Linux, and macOS**. Collect every dot, avoid enemies, use energy chargers to turn the tables, and explore five worlds with the original graphics and PC-speaker-style sound.
+
+The game runs in a native desktop window. No DOS installation or external DOS emulator is required. All game resources are embedded in the executable.
 
 ## Features
 
-- Five worlds with distinct graphics and obstacles.
-- Pixel-art rendering with nearest-neighbor scaling and a 4:3 display area.
-- Double-buffered Windows rendering to prevent black flashes between frames.
-- Fullscreen and windowed modes.
-- Keyboard input, configurable player controls, and joystick support.
-- Sound effects and persistent high scores.
-- Embedded game assets: no separate resource installation is required.
+- Five worlds with their original artwork, mazes, enemies, and bonuses.
+- **One**, **Two** (alternating turns), and **Double** (simultaneous local play) modes.
+- Original menu, selectable speed, built-in demo, help, Top-10 scores, and statistics.
+- Keyboard and joystick input.
+- Fullscreen at startup; switch to a window with **Alt+Enter**.
+- Sharp pixel rendering, a 4:3 display area, and double-buffered rendering on Windows.
+- Direct game start without the original identification prompt.
+- Persistent high scores and demo data in the user's configuration folder.
 
 ## Requirements
 
 | Platform | Build requirements | Runtime requirements |
 | --- | --- | --- |
-| Windows x64 / ARM64 | Go 1.22 or newer | System Windows libraries only |
-| Linux | Go 1.22+, a C compiler | SDL2 |
-| macOS | Go 1.22+, Xcode Command Line Tools | SDL2 |
+| Windows x64 / ARM64 | Go 1.22+; internet access for the icon tool on its first use | Windows system libraries; no SDL2 or C compiler |
+| Linux | Go 1.22+, a C compiler, cgo enabled | SDL2 runtime and a graphical desktop session |
+| macOS Intel / Apple Silicon | Go 1.22+, Xcode Command Line Tools, cgo enabled | SDL2 runtime |
 
-Build each platform on that platform. Scripts target the architecture selected
-by the installed Go toolchain. Windows uses native Win32/GDI/WinMM APIs and does
-not require a C compiler. Linux and macOS use a small cgo adapter that loads SDL2
-at runtime; SDL development headers are not needed. SDL3 is not a substitute.
+Linux and macOS load SDL2 dynamically: SDL2 development headers are not required, and SDL3 cannot replace SDL2. On macOS, the loader also checks `/opt/homebrew/lib`, `/usr/local/lib`, and `/Library/Frameworks/SDL2.framework/SDL2`.
 
-On macOS, install the Xcode Command Line Tools with `xcode-select --install` if
-needed. Install Go and SDL2 using your preferred package manager or installer.
-The adapter supports standard Homebrew library paths and SDL2.framework.
-On Linux, install Go, a C compiler, and the SDL2 runtime using your distribution's
-package manager.
+Go is needed only to build the game, not to play a compiled release. Build Linux and macOS on the target operating system with the required compiler and SDL2 installed.
 
-## Controls
+## Build and run
+
+Clone the repository or extract the source archive. Run build commands from the project root, where `main.go`, `go.mod`, and `cdman2.ico` are located:
+
+```sh
+git clone https://github.com/afsutulov/CD-Man2.git
+cd CD-Man2
+```
+
+### Windows: build with the game icon
+
+The root-level `cdman2.ico` contains transparent images at 16, 24, 32, 48, 64, 128, and 256 pixels. Go does not automatically embed an ICO: generate a Windows resource object first, then build the **package**.
+
+Run in **PowerShell** on Windows:
+
+```powershell
+$arch = go env GOARCH
+$env:CGO_ENABLED = "0"
+go run github.com/akavel/rsrc@v0.10.2 -arch $arch -ico cdman2.ico -o "rsrc_windows_$arch.syso"
+go build -trimpath -ldflags="-s -w -H=windowsgui" -o CD-Man2.exe .
+.\CD-Man2.exe
+```
+
+The versioned resource tool runs separately without adding a dependency to `go.mod`. Its `.syso` output must be beside `main.go`. Go automatically links the resource matching the target platform and architecture. Build **`.`**, not `main.go`, so the resource is included. `-H=windowsgui` prevents a separate console window from appearing.
+
+For Windows ARM64 cross-compilation from x64 Windows, generate the resource **before** changing the build target:
+
+```powershell
+go run github.com/akavel/rsrc@v0.10.2 -arch arm64 -ico cdman2.ico -o rsrc_windows_arm64.syso
+$env:GOARCH = "arm64"
+go build -trimpath -ldflags="-s -w -H=windowsgui" -o CD-Man2-arm64.exe .
+Remove-Item Env:GOARCH
+```
+
+To cross-compile Windows from Linux or macOS, run the generator on the host first, then set the target only for the build command:
+
+```sh
+go run github.com/akavel/rsrc@v0.10.2 -arch amd64 -ico cdman2.ico -o rsrc_windows_amd64.syso
+GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -H=windowsgui" -o CD-Man2.exe .
+```
+
+A generated `.syso` is a build artifact. Keep it for later builds, or delete it after compilation and regenerate it next time. Regenerate it after changing `cdman2.ico`. The platform and architecture suffixes prevent these resources from being linked into Linux/macOS builds or builds for another CPU architecture.
+
+The embedded icon appears for the Windows executable in Explorer and shortcuts. Linux and macOS do not use Windows ICO resources as executable icons; desktop integration there requires a platform-specific launcher or application bundle.
+
+### Linux
+
+Install Go, a C compiler, and the SDL2 runtime using the tools appropriate to your distribution, then run:
+
+```sh
+CGO_ENABLED=1 go build -trimpath -ldflags="-s -w" -o CD-Man2 .
+./CD-Man2
+```
+
+### macOS
+
+Install Go, SDL2, and Xcode Command Line Tools. If compiler tools are missing, run `xcode-select --install`. With Homebrew, install SDL2 using `brew install sdl2`.
+
+```sh
+CGO_ENABLED=1 go build -trimpath -ldflags="-s -w" -o CD-Man2 .
+./CD-Man2
+```
+
+This produces a native executable for the installed Go toolchain's architecture, rather than a macOS `.app` bundle.
+
+## Controls and menus
 
 | Action | Control |
 | --- | --- |
 | Open the menu from the title sequence | Space |
-| Navigate menus | Arrow keys |
-| Select a menu item | Enter |
-| Move the first player with default keyboard controls | Arrow keys |
-| Return to the menu during a game | Esc |
-| Resume a paused game | Select **Continue** |
-| Toggle fullscreen | Alt+Enter |
+| Navigate menu columns and items | Arrow keys |
+| Select the highlighted item | Enter |
+| Move with keyboard control in One / Two mode | Arrow keys |
+| Move player 1 in Double mode | W up, A left, D right, Z or X down |
+| Move player 2 in Double mode | Arrow keys |
+| Return to the menu during play | Esc |
+| Resume the current game | GAME → Continue |
+| Toggle fullscreen / windowed display | Alt+Enter |
+| Switch between Top-10 and statistics | Space on the Top-10 / statistics page |
+| Exit through the menu | GAME → Quit |
+| Exit immediately, potentially losing unsaved scores | Ctrl+Q |
 
-Use the player settings to configure controls for each player. Open the in-game
-**Help** page for gameplay rules and additional control information.
+Choose player mode under **PLAYER**, speed under **SPEED**, and sound under **SOUND**. **GAME → Control** switches keyboard or joystick control; the platform adapter reads the first available joystick. **SEE → Info** opens the original English help, **SEE → Demo** starts the demo, and **SEE → Position** shows the current game position.
+
+To save high scores, exit with **GAME → Quit**. Esc preserves the current game only while the application remains open.
 
 ## Saved data
 
-High scores and recorded demo data are stored in the `CDMan-Go` folder inside
-the operating system's user configuration directory:
+The application uses `os.UserConfigDir()` and stores `HIGHSC.CDM` and `DEMO.CDM` in a `CDMan-Go` subfolder:
 
-| Platform | Default location |
+| Platform | Default folder |
 | --- | --- |
 | Windows | `%APPDATA%\CDMan-Go` |
 | Linux | `$XDG_CONFIG_HOME/CDMan-Go`, or `~/.config/CDMan-Go` |
 | macOS | `~/Library/Application Support/CDMan-Go` |
 
-Existing `HIGHSC.CDM` and `DEMO.CDM` files in this folder remain compatible.
-Replacing the application or rebuilding the project does not remove saved data.
-The game saves these files through its high-score and demo workflows; closing
-the window does not create a full gameplay checkpoint.
+Existing files override the embedded copies. Replacing the executable does not remove saved data. The save folder must be writable.
 
-## Project layout
+Closing the window does not save a gameplay checkpoint: **Continue** resumes within the current session, not after restarting the application.
 
-- `cmd/cdman/` — application entry point and persistent storage.
-- `internal/game/` — game state, gameplay, rendering, sound, and Go tests.
-- `internal/assets/` — embedded images, fonts, maps, menu data, and demo data.
-- `internal/platform/` — native window, input, and audio adapters.
-- `build-windows.bat`, `build-linux.sh`, `build-macos.sh` — build scripts.
+## Source layout and checks
 
-Run `go test ./...` to check arithmetic, all 17 graphical resources, and the
-menu → direct game start → movement → pause → continue workflow.
+| Path | Purpose |
+| --- | --- |
+| `main.go` | Application entry point and persistent storage |
+| `internal/game/` | Translated game logic, state, graphics, sound, and tests |
+| `internal/assets/` | Embedded initial state and original `.CDM` resources |
+| `internal/platform/` | Windows Win32/GDI/WinMM adapter; Linux/macOS SDL2/cgo adapter |
+| `cdman2.ico` | Windows application icon |
+| `LICENSE-font.txt` | Bundled bitmap font license |
+
+Run the existing checks from the project root:
+
+```sh
+go test ./...
+```
+
+Tests cover byte arithmetic, exact pixel hashes of all 17 graphical resources, and the menu → start → movement → pause → continue workflow. Native windows, audio, and input also need testing on each supported operating system.
 
 ## Credits and licensing
 
-Game artwork and content retain the rights of their respective copyright holders.
-The bundled 8×14 bitmap font (`internal/game/ega14.bin`) is from the DOSBox-X
-`int10_font_14` table, copyright © 2002–2020 The DOSBox Team, licensed under
-GPL-2.0-or-later. Its license is provided in [LICENSE-font.txt](LICENSE-font.txt).
-The font license does not grant a separate license to the other game content.
+Original game: **Creative Dimensions**, Anders Moree and Attila Biro, 1992. Original artwork and game content retain the rights of their respective copyright holders.
+
+The bundled 8×14 bitmap font (`internal/game/ega14.bin`) comes from the DOSBox-X `int10_font_14` table, copyright © 2002–2020 The DOSBox Team, licensed under GPL-2.0-or-later. See [LICENSE-font.txt](LICENSE-font.txt). This license does not grant a license to other game content.
+
+Windows icon resource generation uses [rsrc](https://github.com/akavel/rsrc), a separate build-time tool licensed under MIT.
