@@ -10,7 +10,7 @@ import (
 	"time"
 	"unsafe"
 
-	"cdman-go/internal/game"
+	"cdman2/internal/game"
 )
 
 var user = syscall.NewLazyDLL("user32.dll")

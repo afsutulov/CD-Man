@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"cdman-go/internal/assets"
-	"cdman-go/internal/game"
-	"cdman-go/internal/platform"
+	"cdman2/internal/assets"
+	"cdman2/internal/game"
+	"cdman2/internal/platform"
 )
 
 func run() error {

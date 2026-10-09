@@ -73,7 +73,7 @@ static int joySDL(uint16_t *x,uint16_t *y,uint8_t *buttons){if(!joystick)return 
 import "C"
 
 import (
-	"cdman-go/internal/game"
+	"cdman2/internal/game"
 	"fmt"
 	"runtime"
 	"time"

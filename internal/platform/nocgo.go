@@ -3,7 +3,7 @@
 package platform
 
 import (
-	"cdman-go/internal/game"
+	"cdman2/internal/game"
 	"fmt"
 )
 
