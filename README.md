@@ -6,6 +6,12 @@ A Go port of **CD-Man 2.0**, the classic maze arcade game by Creative Dimensions
 
 The game runs in a native desktop window. No DOS installation or external DOS emulator is required. All game resources are embedded in the executable.
 
+## Screenshots
+
+![CD-Man2](screenshots/screenshot1.png)
+
+![Cd-Man](screenshots/screenshot2.png)
+
 ## Features
 
 - Five worlds with their original artwork, mazes, enemies, and bonuses.
